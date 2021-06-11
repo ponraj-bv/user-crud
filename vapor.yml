@@ -1,0 +1,15 @@
+id: 21594
+name: user-crud
+environments:
+    production:
+        memory: 1024
+        cli-memory: 1024
+        storage: the-life-trail-staging-bucket
+        runtime: 'php-8.0:al2'
+        build:
+            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
+            - 'php artisan event:cache'
+            - 'php artisan route:cache'
+            - 'php artisan view:cache'
+            - 'php artisan config:cache'
+            - 'npm ci && npm run prod && rm -rf node_modules'
